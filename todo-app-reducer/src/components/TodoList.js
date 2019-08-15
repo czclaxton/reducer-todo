@@ -1,14 +1,18 @@
-import React, { useReducer, useState } from "react";
+import React from "react";
 
-import Item from "./Item";
-
-const TodoList = props => {
+const TodoList = ({ todoArray, toggleItem, clearCompleted }) => {
   return (
     <div className="todoItems">
-      {props.item.map(item => (
-        <Item key={item.id} item={item} toggleItem={props.toggleItem} />
+      {todoArray.map(item => (
+        <div
+          className={item.completed ? "completed" : ""}
+          onClick={() => toggleItem(item.id)}
+          key={item.id}
+        >
+          {item.name}
+        </div>
       ))}
-      <button onClick={props.clearCompleted}>Clear Completed Tasks</button>
+      <button onClick={clearCompleted}>Clear Completed</button>
     </div>
   );
 };

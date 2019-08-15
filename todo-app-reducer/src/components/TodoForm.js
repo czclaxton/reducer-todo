@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 
-import { initialState, ListReducer } from "../reducers/TodoReducer";
-
-const TodoForm = props => {
-  const [item, setItem] = useState("");
-
-  const handleChanges = event => {
-    setItem({ [event.target.name]: event.target.value });
+const TodoForm = ({ addItem }) => {
+  const [state, setState] = useState("");
+  const handleChange = e => {
+    setState(e.target.value);
   };
-
-  const submitItem = event => {
-    event.preventDefault();
-    setItem({ item: "" });
-    props.addItem(event, item);
+  const handleSubmit = e => {
+    e.preventDefault();
+    addItem(state);
+    setState("");
   };
-
   return (
     <div className="wrapper">
-      <form onSubmit={submitItem}>
-        <div className="formWrapper">
-          <input
-            type="text"
-            name="item"
-            placeholder="Add a new item!"
-            onChange={handleChanges}
-            value={item.item}
-          />
-          <button>Add</button>
-        </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Add items here"
+          name="item"
+          value={state}
+          onChange={handleChange}
+        />
+        <button type="submit">Add</button>
       </form>
     </div>
   );
